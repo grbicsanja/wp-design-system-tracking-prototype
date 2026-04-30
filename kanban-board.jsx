@@ -17,6 +17,8 @@ import { useState, useMemo } from 'react';
 
 const SB = ( id ) => `https://wordpress.github.io/gutenberg/?path=/docs/${ id }`;
 const GH = ( pkg, slug ) => `https://github.com/WordPress/gutenberg/tree/trunk/packages/${ pkg }/src/${ slug }`;
+// Public WordPress Design System Figma community file (figma.com/community/file/1436359662053949167)
+const FIGMA_DS = 'https://www.figma.com/community/file/1436359662053949167/wordpress-design-system';
 
 const ITEMS = {
 	// Storybook tag: "manifest" — stable public API in @wordpress/components
@@ -27,7 +29,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=Button',
 			storybook: SB( 'components-button--docs' ),
 			github: GH( 'components', 'button' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'modal',
@@ -35,7 +37,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=Modal',
 			storybook: SB( 'components-modal--docs' ),
 			github: GH( 'components', 'modal' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'tooltip',
@@ -43,7 +45,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=Tooltip',
 			storybook: SB( 'components-tooltip--docs' ),
 			github: GH( 'components', 'tooltip' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'notice',
@@ -51,7 +53,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=Notice',
 			storybook: SB( 'components-notice--docs' ),
 			github: GH( 'components', 'notice' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'popover',
@@ -67,7 +69,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=Panel',
 			storybook: SB( 'components-panel--docs' ),
 			github: GH( 'components', 'panel' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'spinner',
@@ -91,7 +93,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=ToggleControl',
 			storybook: SB( 'components-togglecontrol--docs' ),
 			github: GH( 'components', 'toggle-control' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'select-control',
@@ -99,7 +101,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=SelectControl',
 			storybook: SB( 'components-selectcontrol--docs' ),
 			github: GH( 'components', 'select-control' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'checkbox-control',
@@ -107,7 +109,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=CheckboxControl',
 			storybook: SB( 'components-checkboxcontrol--docs' ),
 			github: GH( 'components', 'checkbox-control' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'navigator',
@@ -123,7 +125,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=Snackbar',
 			storybook: SB( 'components-snackbar--docs' ),
 			github: GH( 'components', 'snackbar' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'progress-bar',
@@ -131,7 +133,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=ProgressBar',
 			storybook: SB( 'components-progressbar--docs' ),
 			github: GH( 'components', 'progress-bar' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 	],
 
@@ -145,7 +147,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/3858e9/ffffff?text=Card',
 			storybook: '#',
 			github: GH( 'ui', 'card' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'collapsible-card',
@@ -153,7 +155,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/3858e9/ffffff?text=CollapsibleCard',
 			storybook: '#',
 			github: GH( 'ui', 'collapsible-card' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'stack',
@@ -177,7 +179,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/3858e9/ffffff?text=InputControl',
 			storybook: '#',
 			github: GH( 'ui', 'form' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'drawer',
@@ -185,7 +187,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/3858e9/ffffff?text=Drawer',
 			storybook: '#',
 			github: GH( 'ui', 'dialog' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'autocomplete',
@@ -213,7 +215,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/b26200/ffffff?text=Badge',
 			storybook: SB( 'components-badge--docs' ),
 			github: GH( 'components', 'badge' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'tabs',
@@ -221,7 +223,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/b26200/ffffff?text=Tabs',
 			storybook: SB( 'components-tabs--docs' ),
 			github: GH( 'components', 'tabs' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'confirm-dialog',
@@ -229,7 +231,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/b26200/ffffff?text=ConfirmDialog',
 			storybook: SB( 'components-confirmdialog--docs' ),
 			github: GH( 'components', 'confirm-dialog' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 		{
 			id: 'hstack',
@@ -253,7 +255,7 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/b26200/ffffff?text=TreeGrid',
 			storybook: SB( 'components-treegrid--docs' ),
 			github: GH( 'components', 'tree-grid' ),
-			figma: '#',
+			figma: FIGMA_DS,
 		},
 	],
 };
@@ -294,14 +296,20 @@ const fields = [
 					padding: '2px 0',
 				} }
 			>
-				<a
-					href={ item.figma }
-					target="_blank"
-					rel="noreferrer"
-					style={ { color: 'var(--wpds-color-fg-interactive-brand)', fontSize: 'var(--wpds-typography-font-size-sm)', textDecoration: 'none', fontWeight: 'var(--wpds-typography-font-weight-medium)' } }
-				>
-					Figma ↗
-				</a>
+				{ item.figma === '#' ? (
+					<span style={ { color: 'var(--wpds-color-fg-disabled)', fontSize: 'var(--wpds-typography-font-size-sm)' } }>
+						Figma
+					</span>
+				) : (
+					<a
+						href={ item.figma }
+						target="_blank"
+						rel="noreferrer"
+						style={ { color: 'var(--wpds-color-fg-interactive-brand)', fontSize: 'var(--wpds-typography-font-size-sm)', textDecoration: 'none', fontWeight: 'var(--wpds-typography-font-weight-medium)' } }
+					>
+						Figma ↗
+					</a>
+				) }
 				<span style={ { color: 'var(--wpds-color-stroke-surface-neutral)' } }>·</span>
 				<a
 					href={ item.storybook }
