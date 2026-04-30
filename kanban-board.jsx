@@ -4,7 +4,8 @@
 import { Page } from '@wordpress/admin-ui';
 import { Tabs, Badge } from '@wordpress/ui';
 import { DataViews } from '@wordpress/dataviews';
-import { useState } from 'react';
+import { SearchControl } from '@wordpress/components';
+import { useState, useMemo } from 'react';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -196,6 +197,7 @@ function ComponentGrid( { items } ) {
 				paginationInfo={ { totalItems: items.length, totalPages: 1 } }
 				defaultLayouts={ { grid: {} } }
 				getItemId={ ( item ) => item.id }
+				search={ false }
 			/>
 		</div>
 	);
@@ -204,6 +206,20 @@ function ComponentGrid( { items } ) {
 // ─── Root component ───────────────────────────────────────────────────────────
 
 export default function ComponentBrowser() {
+	const [ search, setSearch ] = useState( '' );
+
+	const filteredItems = useMemo( () => {
+		if ( ! search.trim() ) return ITEMS;
+		const q = search.toLowerCase();
+		const filter = ( list ) =>
+			list.filter( ( item ) => item.title.toLowerCase().includes( q ) );
+		return {
+			ready:            filter( ITEMS.ready ),
+			'in-development': filter( ITEMS[ 'in-development' ] ),
+			unstable:         filter( ITEMS.unstable ),
+		};
+	}, [ search ] );
+
 	return (
 		<div style={ { height: '100vh', fontFamily: 'var(--wpds-typography-font-family-body)' } }>
 			<Page
@@ -211,6 +227,15 @@ export default function ComponentBrowser() {
 				subTitle="WordPress UI component library"
 				showSidebarToggle={ false }
 				badges={ <Badge intent="informational">v0.11</Badge> }
+				actions={
+					<SearchControl
+						label="Search components"
+						placeholder="Search…"
+						value={ search }
+						onChange={ setSearch }
+						style={ { width: '220px' } }
+					/>
+				}
 			>
 				<Tabs.Root defaultValue="ready" style={ { display: 'flex', flexDirection: 'column', height: '100%' } }>
 					<div
@@ -229,13 +254,13 @@ export default function ComponentBrowser() {
 
 					<div style={ { flex: 1, overflow: 'auto' } }>
 						<Tabs.Panel value="ready">
-							<ComponentGrid items={ ITEMS.ready } />
+							<ComponentGrid items={ filteredItems.ready } />
 						</Tabs.Panel>
 						<Tabs.Panel value="in-development">
-							<ComponentGrid items={ ITEMS[ 'in-development' ] } />
+							<ComponentGrid items={ filteredItems[ 'in-development' ] } />
 						</Tabs.Panel>
 						<Tabs.Panel value="unstable">
-							<ComponentGrid items={ ITEMS.unstable } />
+							<ComponentGrid items={ filteredItems.unstable } />
 						</Tabs.Panel>
 					</div>
 				</Tabs.Root>
