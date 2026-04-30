@@ -246,9 +246,30 @@ export default function ComponentBrowser() {
 						} }
 					>
 						<Tabs.List>
-							<Tabs.Tab value="ready">Ready</Tabs.Tab>
-							<Tabs.Tab value="in-development">In Development</Tabs.Tab>
-							<Tabs.Tab value="unstable">Unstable</Tabs.Tab>
+							<Tabs.Tab value="ready">
+								Ready
+								{ search && (
+									<Badge intent="none" style={ { marginInlineStart: '6px' } }>
+										{ String( filteredItems.ready.length ) }
+									</Badge>
+								) }
+							</Tabs.Tab>
+							<Tabs.Tab value="in-development">
+								In Development
+								{ search && (
+									<Badge intent="none" style={ { marginInlineStart: '6px' } }>
+										{ String( filteredItems[ 'in-development' ].length ) }
+									</Badge>
+								) }
+							</Tabs.Tab>
+							<Tabs.Tab value="unstable">
+								Unstable
+								{ search && (
+									<Badge intent="none" style={ { marginInlineStart: '6px' } }>
+										{ String( filteredItems.unstable.length ) }
+									</Badge>
+								) }
+							</Tabs.Tab>
 						</Tabs.List>
 					</div>
 
