@@ -8,11 +8,18 @@ import { SearchControl } from '@wordpress/components';
 import { useState, useMemo } from 'react';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
+// Status source of truth:
+//   Ready          — Storybook tag "manifest" (@wordpress/components)
+//   In Development — Storybook tag "status-wip" + all @wordpress/ui components
+//                    (@wordpress/ui v0.12.0 is actively developed, breaking changes)
+//   Unstable       — Storybook tag "status-private" (locked private API)
+//                    or "status-experimental"
 
 const SB = ( id ) => `https://wordpress.github.io/gutenberg/?path=/docs/${ id }`;
 const GH = ( pkg, slug ) => `https://github.com/WordPress/gutenberg/tree/trunk/packages/${ pkg }/src/${ slug }`;
 
 const ITEMS = {
+	// Storybook tag: "manifest" — stable public API in @wordpress/components
 	ready: [
 		{
 			id: 'button',
@@ -28,14 +35,6 @@ const ITEMS = {
 			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=Modal',
 			storybook: SB( 'components-modal--docs' ),
 			github: GH( 'components', 'modal' ),
-			figma: '#',
-		},
-		{
-			id: 'tabs',
-			title: 'Tabs',
-			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=Tabs',
-			storybook: SB( 'components-tabs--docs' ),
-			github: GH( 'components', 'tabs' ),
 			figma: '#',
 		},
 		{
@@ -71,14 +70,6 @@ const ITEMS = {
 			figma: '#',
 		},
 		{
-			id: 'search-control',
-			title: 'SearchControl',
-			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=SearchControl',
-			storybook: SB( 'components-searchcontrol--docs' ),
-			github: GH( 'components', 'search-control' ),
-			figma: '#',
-		},
-		{
 			id: 'spinner',
 			title: 'Spinner',
 			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=Spinner',
@@ -110,21 +101,49 @@ const ITEMS = {
 			github: GH( 'components', 'select-control' ),
 			figma: '#',
 		},
-	],
-	'in-development': [
 		{
-			id: 'badge',
-			title: 'Badge',
-			image: 'https://placehold.co/400x220/3858e9/ffffff?text=Badge',
-			storybook: SB( 'components-badge--docs' ),
-			github: GH( 'ui', 'badge' ),
+			id: 'checkbox-control',
+			title: 'CheckboxControl',
+			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=CheckboxControl',
+			storybook: SB( 'components-checkboxcontrol--docs' ),
+			github: GH( 'components', 'checkbox-control' ),
 			figma: '#',
 		},
+		{
+			id: 'navigator',
+			title: 'Navigator',
+			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=Navigator',
+			storybook: SB( 'components-navigator--docs' ),
+			github: GH( 'components', 'navigator' ),
+			figma: '#',
+		},
+		{
+			id: 'snackbar',
+			title: 'Snackbar',
+			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=Snackbar',
+			storybook: SB( 'components-snackbar--docs' ),
+			github: GH( 'components', 'snackbar' ),
+			figma: '#',
+		},
+		{
+			id: 'progress-bar',
+			title: 'ProgressBar',
+			image: 'https://placehold.co/400x220/1e1e1e/ffffff?text=ProgressBar',
+			storybook: SB( 'components-progressbar--docs' ),
+			github: GH( 'components', 'progress-bar' ),
+			figma: '#',
+		},
+	],
+
+	// @wordpress/ui v0.12.0 — actively developed, frequent breaking changes
+	// (source: packages/ui/CHANGELOG.md)
+	// Also includes CustomSelectControl v2 (Storybook tag: "status-wip")
+	'in-development': [
 		{
 			id: 'card',
 			title: 'Card',
 			image: 'https://placehold.co/400x220/3858e9/ffffff?text=Card',
-			storybook: SB( 'components-card--docs' ),
+			storybook: '#',
 			github: GH( 'ui', 'card' ),
 			figma: '#',
 		},
@@ -140,58 +159,100 @@ const ITEMS = {
 			id: 'stack',
 			title: 'Stack',
 			image: 'https://placehold.co/400x220/3858e9/ffffff?text=Stack',
-			storybook: SB( 'components-hstack--docs' ),
+			storybook: '#',
 			github: GH( 'ui', 'stack' ),
 			figma: '#',
 		},
 		{
-			id: 'snackbar',
-			title: 'Snackbar',
-			image: 'https://placehold.co/400x220/3858e9/ffffff?text=Snackbar',
-			storybook: SB( 'components-snackbar--docs' ),
-			github: GH( 'components', 'snackbar' ),
+			id: 'text-primitive',
+			title: 'Text',
+			image: 'https://placehold.co/400x220/3858e9/ffffff?text=Text',
+			storybook: '#',
+			github: GH( 'ui', 'text' ),
 			figma: '#',
 		},
 		{
-			id: 'progress-bar',
-			title: 'ProgressBar',
-			image: 'https://placehold.co/400x220/3858e9/ffffff?text=ProgressBar',
-			storybook: SB( 'components-progressbar--docs' ),
-			github: GH( 'components', 'progress-bar' ),
-			figma: '#',
-		},
-	],
-	unstable: [
-		{
-			id: 'input-control',
+			id: 'input-control-ui',
 			title: 'InputControl',
-			image: 'https://placehold.co/400x220/b26200/ffffff?text=InputControl',
-			storybook: SB( 'components-inputcontrol--docs' ),
-			github: GH( 'components', 'input-control' ),
+			image: 'https://placehold.co/400x220/3858e9/ffffff?text=InputControl',
+			storybook: '#',
+			github: GH( 'ui', 'form' ),
 			figma: '#',
 		},
 		{
-			id: 'unit-control',
-			title: 'UnitControl',
-			image: 'https://placehold.co/400x220/b26200/ffffff?text=UnitControl',
-			storybook: SB( 'components-unitcontrol--docs' ),
-			github: GH( 'components', 'unit-control' ),
+			id: 'drawer',
+			title: 'Drawer',
+			image: 'https://placehold.co/400x220/3858e9/ffffff?text=Drawer',
+			storybook: '#',
+			github: GH( 'ui', 'dialog' ),
+			figma: '#',
+		},
+		{
+			id: 'autocomplete',
+			title: 'Autocomplete',
+			image: 'https://placehold.co/400x220/3858e9/ffffff?text=Autocomplete',
+			storybook: '#',
+			github: GH( 'ui', 'form' ),
 			figma: '#',
 		},
 		{
 			id: 'custom-select-control-v2',
 			title: 'CustomSelectControl v2',
-			image: 'https://placehold.co/400x220/b26200/ffffff?text=CustomSelectControl',
+			image: 'https://placehold.co/400x220/3858e9/ffffff?text=CustomSelectControl+v2',
 			storybook: SB( 'components-customselectcontrol-v2--docs' ),
 			github: GH( 'components', 'custom-select-control-v2' ),
 			figma: '#',
 		},
+	],
+
+	// Storybook tag: "status-private" (locked private API) or "status-experimental"
+	unstable: [
 		{
-			id: 'combobox-control',
-			title: 'ComboboxControl',
-			image: 'https://placehold.co/400x220/b26200/ffffff?text=ComboboxControl',
-			storybook: SB( 'components-comboboxcontrol--docs' ),
-			github: GH( 'components', 'combobox-control' ),
+			id: 'badge',
+			title: 'Badge',
+			image: 'https://placehold.co/400x220/b26200/ffffff?text=Badge',
+			storybook: SB( 'components-badge--docs' ),
+			github: GH( 'components', 'badge' ),
+			figma: '#',
+		},
+		{
+			id: 'tabs',
+			title: 'Tabs',
+			image: 'https://placehold.co/400x220/b26200/ffffff?text=Tabs',
+			storybook: SB( 'components-tabs--docs' ),
+			github: GH( 'components', 'tabs' ),
+			figma: '#',
+		},
+		{
+			id: 'confirm-dialog',
+			title: 'ConfirmDialog',
+			image: 'https://placehold.co/400x220/b26200/ffffff?text=ConfirmDialog',
+			storybook: SB( 'components-confirmdialog--docs' ),
+			github: GH( 'components', 'confirm-dialog' ),
+			figma: '#',
+		},
+		{
+			id: 'hstack',
+			title: 'HStack',
+			image: 'https://placehold.co/400x220/b26200/ffffff?text=HStack',
+			storybook: SB( 'components-hstack--docs' ),
+			github: GH( 'components', 'h-stack' ),
+			figma: '#',
+		},
+		{
+			id: 'vstack',
+			title: 'VStack',
+			image: 'https://placehold.co/400x220/b26200/ffffff?text=VStack',
+			storybook: SB( 'components-vstack--docs' ),
+			github: GH( 'components', 'v-stack' ),
+			figma: '#',
+		},
+		{
+			id: 'tree-grid',
+			title: 'TreeGrid',
+			image: 'https://placehold.co/400x220/b26200/ffffff?text=TreeGrid',
+			storybook: SB( 'components-treegrid--docs' ),
+			github: GH( 'components', 'tree-grid' ),
 			figma: '#',
 		},
 	],
