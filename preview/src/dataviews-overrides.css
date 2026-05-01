@@ -1,3 +1,13 @@
+/* Hide the DataViews settings/view-config toggle */
+.dataviews-view-config__toggle-wrapper {
+  display: none;
+}
+
+/* Remove the bottom border from the Page header */
+[class*="0625b55e82a0d93d__header"] {
+  border-block-end: none !important;
+}
+
 /* Top-align the field label with multi-line field values (e.g. the Links row) */
 .dataviews-view-grid .dataviews-view-grid__fields .dataviews-view-grid__field,
 .dataviews-view-grid-infinite-scroll .dataviews-view-grid__fields .dataviews-view-grid__field {
@@ -10,4 +20,16 @@
   white-space: normal;
   overflow: visible;
   text-overflow: unset;
+}
+
+/* Hide the field name label — the links/description row is self-explanatory */
+.dataviews-view-grid .dataviews-view-grid__field-name,
+.dataviews-view-grid-infinite-scroll .dataviews-view-grid__field-name {
+  display: none;
+}
+
+/* Stretch the field value to fill the full card width (overrides the 65% default) */
+.dataviews-view-grid .dataviews-view-grid__fields .dataviews-view-grid__field .dataviews-view-grid__field-value,
+.dataviews-view-grid-infinite-scroll .dataviews-view-grid__fields .dataviews-view-grid__field .dataviews-view-grid__field-value {
+  width: 100%;
 }
