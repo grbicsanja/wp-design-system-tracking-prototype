@@ -13,7 +13,7 @@ import '@wordpress/dataviews/build-style/style.css';
 // Override: top-align field labels and allow field values to wrap
 import './dataviews-overrides.css';
 
-import KanbanBoard from '../../kanban-board.jsx';
+import KanbanBoard from './kanban-board.jsx';
 
 class ErrorBoundary extends Component {
 	constructor( props ) {

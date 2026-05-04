@@ -5,18 +5,8 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
 
-// The prototype file lives in the parent directory, outside this project root.
-// Fix 1: allow Vite's dev server to serve files from the parent directory.
-// Fix 2: alias all @wordpress/* so they resolve from local node_modules.
-// Fix 3: pre-bundle every @wordpress package so Vite optimises them in dev
-//         mode the same way esbuild bundles them for production.
 export default defineConfig( {
 	plugins: [ react() ],
-	server: {
-		fs: {
-			allow: [ '..', '.' ],
-		},
-	},
 	resolve: {
 		alias: {
 			'@wordpress/element':    'react',
